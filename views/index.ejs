@@ -8,11 +8,11 @@
 <body>
     <h1><%= title %></h1>
     <ul>
-        <% messages.forEach(function(message) { %>
+        <% messages.forEach(function(item) { %>
             <li>
-                <h2><%= message.user %></h2>
-                <strong><%= message.text %></strong>
-                (<%= message.added.toLocaleString() %>)
+                <h2><%= item.username %></h2>
+                <strong><%= item.message %></strong>
+                (<%= item.date.toLocaleString() %>)
             </li>
         <% }) %>
     </ul>

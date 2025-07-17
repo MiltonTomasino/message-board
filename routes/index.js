@@ -1,20 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const { getAllMessages, addMessage } = require("../db/queries");
 
-const messages = [
-    {
-        text: "Hi there!",
-        user: "Amando",
-        added: new Date()
-    },
-    {
-        text: "Hello World!",
-        user: "Charles",
-        added: new Date()
-    }
-];
+// let messages;
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
+    const messages = await getAllMessages();
     res.render("index", {
         title: "Mini Messageboard",
         messages
@@ -25,11 +16,9 @@ router.get("/new", (req, res) => {
     res.render("new", {title: "New Message"});
 })
 
-router.post("/new", (req, res) => {
+router.post("/new", async (req, res) => {
     const { user, text } = req.body;
-    messages.push({
-        text, user, added: new Date()
-    });
+    await addMessage(user, text);
     res.redirect("/");
 })
 
